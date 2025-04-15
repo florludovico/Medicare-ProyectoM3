@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import {getUserByIdController, getUsersController, loginUserController, registerUserController,} from "../controllers/userControllers";
-import { UserLoginDTO, UserRegisterDTO } from "../dtos/UserDtos";
+import { UserLoginDTO, UserRegisterDTO } from "../dtos/UserDTO";
 
 const userRouter: Router = Router();
 
