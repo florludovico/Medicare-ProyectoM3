@@ -1,29 +1,24 @@
 import bcrypt from "bcrypt"
-import { Credential } from "../interfaces/CredentialsInterface";
-
+import { Credential } from "../entities/Credentials.entity";
+import { EntityManager } from "typeorm";
 
 const credentialList: Credential[] = []
 
 
-let id: number = 1
-
-export const createCredentialService: (a: string, b: string) => Promise<number> = async (username: string, password: string ): Promise<number> => {
+export const createCredentialService: (entityManager : EntityManager, a: string, b: string) => Promise<Credential> = async ( EntityManager: EntityManager, username: string, password: string ): Promise<Credential> => {
 
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     
-    
-    const credentialObject: Credential = {
-        id,
+    const credentials: Credential = EntityManager.create(Credential, {
         username,
         password :hashedPassword
-    }
+    });
 
-    credentialList.push(credentialObject)
+    return await EntityManager.save(credentials)
+};
 
-   
-    return id++;
-}
+
 
 export const checkCredentials = async (username: string, password: string ): Promise<number | undefined> => {
 

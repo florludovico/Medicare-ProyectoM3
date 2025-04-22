@@ -4,9 +4,9 @@ import {getUserByIdService,getUserService,registerUserService,} from "../service
 
 
 
-export const getUsersController = (req: Request, res: Response): void => {
+export const getUsersController = async (req: Request, res: Response): Promise<void> => {
   try {
-    const response = getUserService();
+    const response = await getUserService();
     res.status(200).json({
       message: "Obtener el listado de todos los usuarios.",
       data: response,
