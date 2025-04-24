@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt"
 import { Credential } from "../entities/Credentials.entity";
 import { EntityManager } from "typeorm";
+import { CredentialModel } from "../config/data.source";
 
-const credentialList: Credential[] = []
 
 
 export const createCredentialService: (entityManager : EntityManager, a: string, b: string) => Promise<Credential> = async ( EntityManager: EntityManager, username: string, password: string ): Promise<Credential> => {
@@ -14,7 +14,6 @@ export const createCredentialService: (entityManager : EntityManager, a: string,
         username,
         password :hashedPassword
     });
-
     return await EntityManager.save(credentials)
 };
 
@@ -22,13 +21,16 @@ export const createCredentialService: (entityManager : EntityManager, a: string,
 
 export const checkCredentials = async (username: string, password: string ): Promise<number | undefined> => {
 
-    const usernameFound: Credential | undefined = credentialList.find(credential => credential.username === username );
+    const usernameFound: Credential | null = await CredentialModel.findOne({
+        where: {
+            username: username
+        }
+    });
 
     if(!usernameFound) throw new Error(`El usuario ${username} no fue encontrado`);
 
     const isPasswordValid: boolean = await bcrypt.compare(password, usernameFound.password);
 
-    
     if(!isPasswordValid) throw new Error(`Usuario o contrasena incorrecta`)
 
     return usernameFound.id;
