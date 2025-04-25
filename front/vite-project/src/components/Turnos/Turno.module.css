@@ -1,0 +1,53 @@
+.appointmenCard {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .appointmenCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-color: #0077ff;
+  }
+  
+  .appointmentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .statusActive {
+    color: #2e7d32;
+    background-color: #c8e6c9;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  
+  .statusInactive {
+    color: #c62828;
+    background-color: #ffcdd2;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  
+  .appointmentDetails p {
+    margin: 4px 0;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .appointmentDetails span {
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  
