@@ -12,6 +12,7 @@ function Turno({id, date, time, status}){
                 <p><strong>Fecha:</strong> <span>{date}</span></p>
                 <p><strong>Hora:</strong> <span>{time}</span></p>
             </div>
+            <button disabled={ status == 'cancelled'}> Cancelar Turno</button>
         </div>
 
     )

@@ -3,7 +3,7 @@ const myAppointments =[
         id: 1,
         date:2025-7-25,
         time: "10:00",
-        status: "active"
+        status: "inactive"
     },
     {
         id: 2,

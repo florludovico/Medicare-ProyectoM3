@@ -1,4 +1,10 @@
 .titulo{
-    background-color:rgb(150, 90, 90);
-    color:rgb(114, 109, 109)
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:rgb(114, 109, 109);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:10px auto;
+    padding: 5px;
+    width: 30%
 }

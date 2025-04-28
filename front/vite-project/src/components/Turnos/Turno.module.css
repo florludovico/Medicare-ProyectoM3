@@ -7,12 +7,13 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
   }
   
   .appointmenCard:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    border-color: #0077ff;
+    border-color: #894c95;
   }
   
   .appointmentHeader {
@@ -49,5 +50,29 @@
   .appointmentDetails span {
     font-weight: 500;
     margin-left: 4px;
+  }
+  
+  .appointmenCard button {
+    margin-top: 16px;
+    padding: 10px 20px;
+    background-color: #cca2ce;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .appointmenCard button:hover:not(:disabled) {
+    background-color: #8c638e;
+    transform: scale(1.03);
+  }
+  
+  .appointmenCard button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    transform: none;
   }
   
