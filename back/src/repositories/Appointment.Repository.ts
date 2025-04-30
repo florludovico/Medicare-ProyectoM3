@@ -43,7 +43,7 @@ export const AppointmentRepository = AppDataSource.getRepository(Appointment).ex
       });
 
       if (existingAppointment) {
-        throw new Error("Ya tenés un turno reservado en esa fecha y hora");
+        throw new Error("Ya tiene un turno reservado en esa fecha y hora");
       }
     },
   });

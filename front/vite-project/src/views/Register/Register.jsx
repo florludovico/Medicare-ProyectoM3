@@ -1,15 +1,17 @@
 import { registerFormValidates } from "../../helpers/validates";
 import styles from "./Register.module.css";
 import { useFormik } from "formik";
-import { useState } from "react";
-import axios from "axios";
+import { useContext, useState } from "react";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate} from "react-router-dom";
+import { UsersContext } from "../../context/UsersContext";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const { registerUser } = useContext(UsersContext);
+
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -20,28 +22,23 @@ const Register = () => {
       password: "",
     },
     validate: registerFormValidates,
-    // initialErrors: {
-    //     name: "Nombre es requerido",
-    //     email: "Email es requerido",
-    //     birthdate: "Fecha de nacimiento es requerida",
-    //     nDni: "nDni es requerido",
-    //     username: "Nombre de usuario es requerido",
-    //     password: "Contrasena es requerida"
-    // },
+
     onSubmit: (values) => {
-      axios
-        .post("http://localhost:3000/users/register", values)
+
+      registerUser(values)
         .then((res) => {
           if (res.status === 201) {
             Swal.fire({
               icon: "success",
-              title:  `¡Bienvenido, ${res.data.user.name}!`,
-              text: "Tu cuenta fue creada exitosamente.",
+              title: `¡Registro exitoso!`,
+              text: res.data.message || "Tu cuenta fue creada exitosamente.",
             });
             formik.resetForm();
-          }
+          } 
+            navigate("/");
         })
         .catch((err) => {
+          
           if (err.response.data.data.includes("email")) {
             Swal.fire({
               icon: "error",
@@ -170,19 +167,19 @@ const Register = () => {
         className={styles.formButton}
         type="submit"
         disabled={
-          !formik.errors.name ||
-          !formik.errors.email ||
-          !formik.errors.birthdate ||
-          !formik.errors.nDni ||
-          !formik.errors.username ||
-          !formik.errors.password
+          formik.errors.name ||
+          formik.errors.email ||
+          formik.errors.birthdate ||
+          formik.errors.nDni ||
+          formik.errors.username ||
+          formik.errors.password
         }
       >
         Submit
       </button>
-      <br/>
+      <br />
       <label>
-       ¿Ya tienes una cuenta? <Link to={"/login"}> Login </Link>
+        ¿Ya tienes una cuenta? <Link to={"/login"}> Login </Link>
       </label>
     </form>
   );

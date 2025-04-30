@@ -4,42 +4,40 @@ import MisTurnos from "./views/MisTurnos/MisTurnos";
 import Login from "./views/Login/Login";
 import Register from "./views/Register/Register";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import NotFound from "./components/NotFound/NotFound";
+import { UsersContext } from "./context/UsersContext";
+import AgendarTurno from "./views/AgendarTurno/AgendarTurno";
 
 function App() {
-  const [isLogged, setIsLogged] = useState();
+  
   const [isNotFound, setIsNotFound] = useState(false);
+  const { user } = useContext(UsersContext);
+
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsLogged(localStorage.getItem("user_id"));
+    const validateRoutes = ["/", "/login", "/register", "/misturnos", "/agendarturno"];
+    if (!validateRoutes.includes(location.pathname)) setIsNotFound(true);
+    else setIsNotFound(false);
 
-    if (
-      !isLogged &&
-      location.pathname !== "/login" &&
-      location.pathname !== "/register"
-    ) {
+  
+
+    if (!user && location.pathname !== "/login" && location.pathname !== "/register") {
       navigate("/login");
     }
 
-    if (
-      isLogged &&
-      (location.pathname === "/login" || location.pathname === "/register")
-    ) {
+    if ( user && (location.pathname === "/login" || location.pathname === "/register")) {
       navigate("/");
     }
 
-    const validateRoutes = ["/", "/login", "/register", "/misturnos"];
-    if (!validateRoutes.includes(location.pathname)) setIsNotFound(true);
-    else setIsNotFound(false);
-  }, [isLogged, navigate, location.pathname]);
+  }, [user, navigate, location.pathname]);
 
   return (
     <>
-      {!isLogged ? (
+      {!user ? (
         <main className={styles.main}>
           <Routes>
             <Route path="/login" element={<Login />} />
@@ -50,15 +48,16 @@ function App() {
         <>
           {!isNotFound && (
             <header>
-              <span> Logo</span>
+              <span className={styles.logo}> MEDICARE 🩺</span>
               <Navbar />
             </header>
           )}
 
-          <main>
+          <main className={styles.main}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/misturnos" element={<MisTurnos />} />
+              <Route path="/agendarturno" element={<AgendarTurno />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

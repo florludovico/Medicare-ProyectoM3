@@ -1,16 +1,17 @@
 import styles from "./Login.module.css";
 import { useFormik } from "formik";
-import { useState } from "react";
-import axios from "axios";
+import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { loginFormValidates } from "../../helpers/validates";
-import { Link, useNavigate} from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { UsersContext } from "../../context/UsersContext";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate()
 
+  const { loginUser } = useContext(UsersContext);
+
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -19,26 +20,21 @@ const Login = () => {
     validate: loginFormValidates,
 
     onSubmit: (values) => {
-      axios
-        .post("http://localhost:3000/users/login", values)
+      loginUser(values)
         .then((res) => {
-          if (res.status === 200) 
+          if (res.status === 200)
             Swal.fire({
               icon: "success",
               title: "Usuario logueado correctamente",
             });
-            
-            localStorage.setItem("user_id", res.data.user.id)
-            navigate("/");
-            
-          
 
+          navigate("/");
         })
         .catch((err) => {
           if (err.response) {
-           
-            const message = err.response.data?.data || err.response.data?.message || "";
-        
+            const message =
+              err.response.data?.data || err.response.data?.message || "";
+
             if (message.includes("Usuario o contrasena incorrecta")) {
               Swal.fire({
                 icon: "error",
@@ -109,18 +105,18 @@ const Login = () => {
       <button
         className={styles.formButton}
         type="submit"
-        disabled={Object.keys(formik.errors).length > 0 ||
+        disabled={
+          Object.keys(formik.errors).length > 0 ||
           formik.errors.username ||
           formik.errors.password
         }
       >
         Submit
       </button>
-      <br/>
+      <br />
       <label>
-       ¿Aun no tienes una cuenta? <Link to={"/register"}> Regístrate </Link>
+        ¿Aun no tienes una cuenta? <Link to={"/register"}> Regístrate </Link>
       </label>
-
     </form>
   );
 };

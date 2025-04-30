@@ -1,10 +1,59 @@
-.titulo{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color:rgb(114, 109, 109);
+.homeContainer {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px auto;
+    max-width: 600px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.92); 
+    width: 90%;
+    z-index: 1;
+  }
+  
+  .titulo {
+    font-size: 2rem;
+    color: #894c95;
+    margin-bottom: 16px;
+  }
+  
+  .welcomeMessage {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 24px;
+  }
+  
+  .homeButton {
+    padding: 12px 24px;
+    background-color: #cca2ce;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .homeButton:hover {
+    background-color: #8c638e;
+    transform: scale(1.03);
+  }
+  .linkWrapper {
+    text-decoration: none;
+    display: inline-block;
+  }  
+
+  .background {
+    background-image: url("../../assets/imagenHome.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  
+    width: 100vw;
+    height: 100vh;
+  
     display: flex;
     justify-content: center;
     align-items: center;
-    margin:10px auto;
-    padding: 5px;
-    width: 30%
-}
+  }
