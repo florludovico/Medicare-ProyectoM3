@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +35,8 @@ const Register = () => {
           if (res.status === 201) {
             Swal.fire({
               icon: "success",
-              title: "Usuario registrado con éxito",
+              title:  `¡Bienvenido, ${res.data.user.name}!`,
+              text: "Tu cuenta fue creada exitosamente.",
             });
             formik.resetForm();
           }
@@ -167,16 +170,20 @@ const Register = () => {
         className={styles.formButton}
         type="submit"
         disabled={
-          !formik.values.name ||
-          !formik.values.email ||
-          !formik.values.birthdate ||
-          !formik.values.nDni ||
-          !formik.values.username ||
-          !formik.values.password
+          !formik.errors.name ||
+          !formik.errors.email ||
+          !formik.errors.birthdate ||
+          !formik.errors.nDni ||
+          !formik.errors.username ||
+          !formik.errors.password
         }
       >
         Submit
       </button>
+      <br/>
+      <label>
+       ¿Ya tienes una cuenta? <Link to={"/login"}> Login </Link>
+      </label>
     </form>
   );
 };

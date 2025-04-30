@@ -6,7 +6,7 @@ function Home (){
     return(
         <div>
         <h1 className={styles.titulo}> HOME </h1>
-        <Navbar/>
+        
         </div>
     )
 }

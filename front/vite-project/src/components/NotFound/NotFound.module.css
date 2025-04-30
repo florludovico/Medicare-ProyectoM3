@@ -1,0 +1,59 @@
+.continer404 {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background: linear-gradient(135deg, #f8e5fb, #ffffff);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #1f1e1e;
+    text-align: center;
+  }
+  
+  .errorImage {
+    max-width: 100%;
+    height: 300px;
+    object-fit: contain;
+    margin-bottom: 30px;
+    border: 2px solid #333;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .title404 {
+    font-size: 42px;
+    font-weight: bold;
+    color: #a253a7b8;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px #ffc107;
+  }
+  
+  .message {
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 25px;
+    max-width: 500px;
+  }
+  
+  .homeButton404 {
+    padding: 12px 24px;
+    background-color: #bc7ec0;
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 3px 3px 0 #cacaca;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .homeButton404:hover {
+    background-color: #a092a3;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 #ea98ef;
+  }
+  
+  

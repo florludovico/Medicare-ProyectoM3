@@ -4,9 +4,12 @@ import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { loginFormValidates } from "../../helpers/validates";
+import { Link, useNavigate} from "react-router-dom";
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -19,24 +22,43 @@ const Login = () => {
       axios
         .post("http://localhost:3000/users/login", values)
         .then((res) => {
-            console.log(res.data.user.id);
-            localStorage.setItem("user_id", res.data.user.id)
-
-          if (res.status === 200)
+          if (res.status === 200) 
             Swal.fire({
               icon: "success",
               title: "Usuario logueado correctamente",
             });
+            
+            localStorage.setItem("user_id", res.data.user.id)
+            navigate("/");
+            
+          
+
         })
         .catch((err) => {
-          
-          if (
-            err.response.data.data.includes("Usuario o contrasena incorrecta")
-          )
+          if (err.response) {
+           
+            const message = err.response.data?.data || err.response.data?.message || "";
+        
+            if (message.includes("Usuario o contrasena incorrecta")) {
+              Swal.fire({
+                icon: "error",
+                title: "Usuario o contraseña incorrectos",
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error en el servidor",
+                text: message || "Error desconocido. Intenta de nuevo.",
+              });
+            }
+          } else {
             Swal.fire({
               icon: "error",
-              title: "Usuario o contraseña incorrecto",
+              title: "Error de conexión",
+              text: "No se pudo conectar al servidor. Intenta más tarde.",
             });
+            console.error("Error de red:", err);
+          }
         });
     },
   });
@@ -87,10 +109,18 @@ const Login = () => {
       <button
         className={styles.formButton}
         type="submit"
-        disabled={!formik.values.username || !formik.values.password}
+        disabled={Object.keys(formik.errors).length > 0 ||
+          formik.errors.username ||
+          formik.errors.password
+        }
       >
         Submit
       </button>
+      <br/>
+      <label>
+       ¿Aun no tienes una cuenta? <Link to={"/register"}> Regístrate </Link>
+      </label>
+
     </form>
   );
 };
