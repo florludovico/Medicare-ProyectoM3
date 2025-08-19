@@ -1,6 +1,15 @@
 import { useState, createContext } from "react";
 import axios from "axios";
 
+// 1. CREA UNA INSTANCIA DE AXIOS CONFIGURADA
+// Esta instancia usará automáticamente la URL de tu backend desplegado
+// o la URL local si la variable de entorno no existe.
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000",
+});
+
+
+
 export const UsersContext = createContext({
   user: "",
   userAppointments: [],
@@ -20,11 +29,11 @@ export const UserProvider = ({ children }) => {
 
 
   const registerUser = async (userData) => {
-    return await axios.post("http://localhost:3000/users/register", userData);
+    return await apiClient.post("/users/register", userData);
   };
 
   const loginUser = async (loginUser) => {
-    const res = await axios.post("http://localhost:3000/users/login", loginUser);
+    const res = await apiClient.post("/users/login", loginUser);
     
     localStorage.setItem("user", res.data.user.id);
     localStorage.setItem("name", res.data.user.name);
@@ -35,23 +44,23 @@ export const UserProvider = ({ children }) => {
 
   const logOut = ()=> {
     localStorage.removeItem("user");
+    localStorage.removeItem("name"); 
     setUser(false);
     setUserAppointments([]);
   };
 
 
   const createAppointment = async (values) => {
-    await axios.post("http://localhost:3000/appointments/schedule", values);
-  };
+    await apiClient.post("/appointments/schedule", values);  };
 
 
   const getUserAppointments = async (userId) => {
-   const { data } = await axios.get(`http://localhost:3000/users/${userId}`);
+   const { data } = await apiClient.get(`/users/${userId}`);
    setUserAppointments(data.appointments);
   };
 
   const cancelUserAppointment = async (appointmentId) => {
-    await axios.put(`http://localhost:3000/appointments/cancel/${appointmentId}`);
+     await apiClient.put(`/appointments/cancel/${appointmentId}`);
    const newAppointments =  userAppointments.map((appointment) => appointment.id === appointmentId ? { ...appointment, status: "cancelled"} : appointment);
    setUserAppointments(newAppointments);     
   };

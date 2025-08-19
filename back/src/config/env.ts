@@ -11,3 +11,4 @@ export const DB_ENTITIES: string[] = process.env.DB_ENTITIES
   : ["src/entities/**/*.ts"];
 export const DB_DROP: boolean = process.env.DB_DROP ? process.env.DB_DROP === "true" : true
 export const DB_SSL = { rejectUnauthorized: false};
+export const FRONTEND_URL: string = process.env.FRONTEND_URL || "http://localhost:3000"; // Usa tu puerto local como default
