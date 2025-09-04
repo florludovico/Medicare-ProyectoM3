@@ -1,4 +1,6 @@
-## MEDICARE 🩺
+## MEDICARE 🩺   
+
+▪️Acceder al proyecto desplegado: https://medicare-s5jh.onrender.com/
 
 ### ➡️Descripción del Proyecto
 MEDICARE es una aplicación web diseñada para facilitar la gestión de turnos médicos. La plataforma permite a los usuarios registrarse, iniciar sesión y administrar sus citas de una manera sencilla e intuitiva. El objetivo principal es ofrecer una experiencia de usuario fluida y segura, tanto para agendar nuevos turnos como para consultar o cancelar los existentes.
